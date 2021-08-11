@@ -2,6 +2,7 @@ package com.example.intents
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -34,7 +35,13 @@ class MainActivity : AppCompatActivity() {
             var image = data?.extras?.get("data") as Bitmap
             iv.setImageBitmap(image)
 
-
+            var share = findViewById<Button>(R.id.Share)
+            share.setOnClickListener{
+                var myinTent = Intent(Intent.ACTION_SEND)
+                myinTent.type = "image/*"
+                myinTent.putExtra(Intent.EXTRA_STREAM, data?.data)
+                startActivity(myinTent)
+            }
         }
     }
 }
